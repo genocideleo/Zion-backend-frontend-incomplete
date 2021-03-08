@@ -1,0 +1,20 @@
+// Add item
+export const addItem = (formData, history, match) => async (dispatch) => {
+  try {
+    const res = await api.post('/items/add', formData);
+
+    dispatch({
+      type: GET_ITEM,
+      payload: res.data,
+    });
+
+    dispatch(setAlert('Item Created', 'success'));
+    history.push(`/mystore/myitem/${res.data.id}`);
+    // history.push(`/mystore`);
+  } catch (err) {
+    dispatch({
+      type: ITEM_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};

@@ -12,17 +12,19 @@ const ProfileSchema = new mongoose.Schema({
     contentType: String,
   },
 
-  stores: [
-    {
+  store: {
+    storeid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'store',
     },
-  ],
-
-  address: {
-    homeaddress: {
+    storename: {
       type: String,
     },
+  },
+  //store 1 cauh nei thei in siam hrih ang alpha ah
+
+  address: {
+    type: String,
   },
   contactnumber: {
     type: Number,

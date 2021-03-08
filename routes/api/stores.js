@@ -81,11 +81,24 @@ router.post(
 
     try {
       // Using upsert option (creates new doc if no match is found):
-      let store = await Store.findOneAndUpdate(
+      const store = await Store.findOneAndUpdate(
         { user: req.user.id }, //the find parameter
         { $set: storeFields }, //the updated data
         { new: true, upsert: true, setDefaultsOnInsert: true } //the upsert
       );
+
+      // profileFields.store.storeid = store.id;
+      //update the profile of owner
+      const profileStore = { store: {} };
+      profileStore.store.storeid = store.id;
+      profileStore.store.storename = store.storename;
+
+      const profile = await Profile.findOneAndUpdate(
+        { user: req.user.id }, //the find parameter
+        { $set: profileStore }, //the updated data
+        { new: true, upsert: true, setDefaultsOnInsert: true } //the upsert
+      );
+
       return res.json(store);
     } catch (err) {
       console.error(err.message);

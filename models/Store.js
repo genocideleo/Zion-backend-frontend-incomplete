@@ -23,6 +23,7 @@ const StoreSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
   provideservice: {
     type: Boolean,
     default: false,
@@ -55,55 +56,6 @@ const StoreSchema = new mongoose.Schema({
     },
   ],
 
-  // service: [
-  //   {
-  //     name: {
-  //       type: String,
-  //       required: true,
-  //       unique: true,
-  //     },
-  //     price: {
-  //       type: Number,
-  //       required: true,
-  //     },
-  //     description: {
-  //       type: String,
-  //       required: true,
-  //     },
-  //     provider: {
-  //       type: mongoose.Schema.Types.ObjectId,
-  //     },
-  //     avgrating: {
-  //       type: Number,
-  //     }, //to be modi
-  //     comments: [
-  //       {
-  //         user: {
-  //           type: mongoose.Schema.Types.ObjectId,
-  //         },
-  //         profilepic: {
-  //           type: mongoose.Schema.Types.ObjectId,
-  //           ref: 'user',
-  //         },
-  //         text: {
-  //           type: String,
-  //           required: true,
-  //         },
-  //         likes: {
-  //           type: mongoose.Schema.Types.ObjectId,
-  //           ref: 'user',
-  //         },
-  //         date: {
-  //           type: Date,
-  //           default: Date.now,
-  //         },
-  //       },
-  //     ],
-
-  //     date: { type: Date, default: Date.now },
-  //   },
-  // ],
-
   storeaddress: {
     type: String,
   },
@@ -128,3 +80,52 @@ const StoreSchema = new mongoose.Schema({
   ],
 });
 module.exports = Store = mongoose.model('store', StoreSchema);
+
+// service: [
+//   {
+//     name: {
+//       type: String,
+//       required: true,
+//       unique: true,
+//     },
+//     price: {
+//       type: Number,
+//       required: true,
+//     },
+//     description: {
+//       type: String,
+//       required: true,
+//     },
+//     provider: {
+//       type: mongoose.Schema.Types.ObjectId,
+//     },
+//     avgrating: {
+//       type: Number,
+//     }, //to be modi
+//     comments: [
+//       {
+//         user: {
+//           type: mongoose.Schema.Types.ObjectId,
+//         },
+//         profilepic: {
+//           type: mongoose.Schema.Types.ObjectId,
+//           ref: 'user',
+//         },
+//         text: {
+//           type: String,
+//           required: true,
+//         },
+//         likes: {
+//           type: mongoose.Schema.Types.ObjectId,
+//           ref: 'user',
+//         },
+//         date: {
+//           type: Date,
+//           default: Date.now,
+//         },
+//       },
+//     ],
+
+//     date: { type: Date, default: Date.now },
+//   },
+// ],

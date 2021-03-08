@@ -8,12 +8,11 @@ const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 const Store = require('../../models/Store');
 const Item = require('../../models/Item');
-const e = require('express');
 
-// @route    PUT api/items/add
+// @route    POST api/items/add
 // @desc     Creates item and also saves it to store's listeditems
 // @access   Private
-router.put(
+router.post(
   '/add',
   auth,
   check('name', 'Item name is required').notEmpty(),

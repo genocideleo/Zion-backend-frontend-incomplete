@@ -3,25 +3,22 @@ import { Link, Redirect } from 'react-router-dom';
 import { login } from '../actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
 
-//material css
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-// import { sizing, flexbox, spacing } from '@material-ui/system';
+import { sizing, flexbox, spacing } from '@material-ui/system';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
-import image from '../../img/sweets.jpg';
+import image from './image.jpg';
 import SendIcon from '@material-ui/icons/Send';
+import Icon from '@material-ui/core/Icon';
 
 const useStyles = makeStyles({
   root: {
     height: '80vh',
   },
   boxImg: {
-    background: ` url(${image}) `,
-    backgroundPosition: 'center',
-    backgroundRepeat: 'norepeat',
-    backgroundSize: 'cover',
+    background: ` url(${image}) no-repeat center`,
     minHeight: '40rem',
   },
   textField: {
@@ -39,8 +36,8 @@ const useStyles = makeStyles({
 });
 
 const Landing = () => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const classes = useStyles();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: '',
@@ -55,8 +52,9 @@ const Landing = () => {
     dispatch(login(email, password));
   };
   if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
+    return <Redirect to='/home' />;
   }
+
   return (
     <>
       <Box display='flex' width='70%' mx='auto' mt={8} className={classes.root}>
@@ -70,20 +68,20 @@ const Landing = () => {
                 label='Email or Ph. no'
                 variant='outlined'
                 color='secondary'
+                className={classes.textField}
                 name='email'
                 value={email}
                 onChange={onChange}
-                className={classes.textField}
               />
               <TextField
                 id='outlined-secondary'
                 label='Password'
-                name='password'
-                value={password}
-                onChange={onChange}
                 variant='outlined'
                 color='secondary'
                 className={classes.textField}
+                name='password'
+                value={password}
+                onChange={onChange}
               />
               <Button
                 variant='contained'

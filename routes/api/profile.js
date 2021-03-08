@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
+// //for img upload
+// const fs = require('fs');
+// //
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
@@ -64,15 +67,21 @@ router.post(
     //here the second field of findone acts as select()
     const username = await User.findOne({ _id: req.user.id }, 'username -_id');
     profileFields.username = username.username;
+    // image upload dan tur mase frontend nen a in mix tah hian
+    //     //profilepic upload
+    //     // img path
+    // var imgPath = '/path/to/some/img.png';
+    //     // // store an img in binary in mongo
+    //     if (profilepic)
+    //     profileFields.profilepic.data = fs.readFileSync(imgPath);
+    //     profileFields.profilepic.contentType = 'image/png';
 
-    if (profilepic) profileFields.profilepic = profilepic;
+    // if (profilepic) profileFields.profilepic = profilepic;
     // if (wallpaper) profileFields.wallpaper = wallpaper; store,mall,services bakin wallpaper an mamoh lo kati
+
     if (address) profileFields.address = address;
     if (contactnumber) profileFields.contactnumber = contactnumber;
     if (contactemail) profileFields.contactemail = contactemail;
-    // if (havestore && stores) {
-    //   profileFields.stores = stores.map((store) => store); // to modify the mapping
-    // } //testing 4/3- 10:23
 
     // build social object
     const socialFields = { whatsapp, youtube, instagram, facebook };
