@@ -4,6 +4,7 @@ import {
   STORE_ERROR,
   UPDATE_STORE,
   CLEAR_STORE,
+  CLEAR_STORES,
   STORE_DELETED,
 } from '../actions/types';
 
@@ -25,12 +26,12 @@ function storeReducer(state = initialState, action) {
         store: payload,
         loading: false,
       };
-    // case GET_STORES:
-    //   return {
-    //     ...state,
-    //     stores: payload,
-    //     loading: false,
-    //   };
+    case GET_STORES:
+      return {
+        ...state,
+        stores: payload,
+        loading: false,
+      };
     case STORE_ERROR:
       return {
         ...state,
@@ -42,6 +43,11 @@ function storeReducer(state = initialState, action) {
       return {
         ...state,
         store: null,
+      };
+    case CLEAR_STORES:
+      return {
+        ...state,
+        stores: [],
       };
     // case GET_REPOS:
     //   return {

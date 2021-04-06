@@ -17,6 +17,8 @@ import MyStore from '../mystore/MyStore';
 import MyStoreForm from '../my-forms/MyStoreForm';
 import ItemForm from '../my-forms/ItemForm';
 import MyItem from '../mystore/items/MyItem';
+import Stores from '../stores/Stores';
+import Store from '../stores/Store';
 
 const Routes = (props) => {
   return (
@@ -28,6 +30,8 @@ const Routes = (props) => {
           <Switch>
             <Route exact path='/register' component={Register} />
             <Route exact path='/login' component={Login} />
+            <Route exact path='/stores' component={Stores} />
+            <Route exact path='/store/:id' component={Store} />
             <PrivateRoute exact path='/home' component={Home} />
             <PrivateRoute exact path='/myprofile' component={MyProfile} />
             <PrivateRoute

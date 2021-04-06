@@ -31,6 +31,23 @@ export const getItems = () => async (dispatch) => {
   }
 };
 
+// Get all items from mystore
+export const getMyItems = (id) => async (dispatch) => {
+  try {
+    const res = await api.get(`/items/store/${id}`);
+
+    dispatch({
+      type: GET_ITEMS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: ITEM_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 // Add like to item
 export const addLike = (id) => async (dispatch) => {
   try {

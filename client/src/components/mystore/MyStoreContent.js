@@ -2,7 +2,8 @@ import React, { useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import Spinner from '../layout/Spinner';
-import { getCurrentStore, deleteStore } from '../actions/store';
+// import { getCurrentStore, deleteStore } from '../actions/store';
+import ListedItems from './items/ListedItems';
 
 // import MyStoreInfoBar from './MyStoreInfoBar';
 // import Wishlist from './Wishlist';
@@ -286,6 +287,7 @@ const MyStoreContent = () => {
             }}
           />
           {/*  itemlist  */}
+          <ListedItems />
         </Fragment>
       )}
     </Fragment>

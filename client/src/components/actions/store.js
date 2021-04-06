@@ -7,6 +7,7 @@ import {
   STORE_ERROR,
   UPDATE_STORE,
   CLEAR_STORE,
+  CLEAR_STORES,
   STORE_DELETED,
 } from './types';
 
@@ -47,7 +48,8 @@ export const getStores = () => async (dispatch) => {
 };
 
 // Get store by ID
-export const getProfileById = (storeId) => async (dispatch) => {
+export const getStoreById = (storeId) => async (dispatch) => {
+  dispatch({ type: CLEAR_STORES });
   try {
     const res = await api.get(`/stores/${storeId}`);
 

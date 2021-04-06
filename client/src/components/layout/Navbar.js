@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   companyIcon: {
     //Controls the company icon on top left
-    marginRight: 'auto',
+
     marginLeft: '35px',
     cursor: 'pointer',
   },
@@ -140,10 +140,12 @@ const Navbar = () => {
               </Box>
             </Box>
 
-            <Box display='flex'>
-              <Box className={classes.middleList}>
-                <StoreIcon />
-                <span>Stores</span>
+            <Box display='flex' style={{ marginLeft: '23%' }}>
+              <Box className={classes.middleList} clone>
+                <Link to='/stores'>
+                  <StoreIcon />
+                  <span>Stores</span>
+                </Link>
               </Box>
               <Box className={classes.middleList}>
                 <ExploreIcon />
@@ -195,10 +197,12 @@ const Navbar = () => {
               </Box>
             </Box>
 
-            <Box display='flex'>
-              <Box className={classes.middleList}>
-                <StoreIcon />
-                <span>Stores</span>
+            <Box display='flex' style={{ marginLeft: '23%' }}>
+              <Box className={classes.middleList} clone>
+                <Link to='/stores'>
+                  <StoreIcon />
+                  <span>Stores</span>
+                </Link>
               </Box>
               <Box className={classes.middleList}>
                 <ExploreIcon />

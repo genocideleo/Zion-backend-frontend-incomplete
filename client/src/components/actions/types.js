@@ -22,6 +22,7 @@ export const GET_STORES = 'GET_STORES';
 export const STORE_ERROR = 'STORE_ERROR';
 export const UPDATE_STORE = 'UPDATE_STORE';
 export const CLEAR_STORE = 'CLEAR_STORE';
+export const CLEAR_STORES = 'CLEAR_STORES';
 export const STORE_DELETED = 'STORE_DELETED';
 //item
 export const GET_ITEM = 'GET_ITEM';

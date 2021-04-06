@@ -1,17 +1,16 @@
 import React, { Fragment, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCurrentStore, deleteStore } from '../actions/store';
-import MyStoreContent from './MyStoreContent';
-import MyStoreForm from '../my-forms/MyStoreForm';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { getCurrentStore, deleteStore, getStoreById } from '../actions/store';
+import StoreContent from './StoreContent';
+// import MyStoreForm from '../my-forms/MyStoreForm';
+// import PropTypes from 'prop-types';
+// import { connect } from 'react-redux';
 //Material UI custom style maker
 import { makeStyles } from '@material-ui/core/styles';
 
 //Material UI components
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
@@ -72,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   },
   asider: {
     //Controls the right part the main section
-    position: 'relative',
+    position: 'absolute',
     height: '100%',
     backgroundColor: '#dadbdd',
     minWidth: '140px',
@@ -81,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
   main: {
     //The middle part of the main section
     marginLeft: '140px',
-
+    marginRight: '140px',
     width: '100%',
     padding: '2px 1px',
   },
@@ -103,14 +102,14 @@ const useStyles = makeStyles((theme) => ({
     height: 140,
   },
 }));
-const MyStore = () => {
+const Store = ({ match }) => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
+
   const store = useSelector((state) => state.store.store);
   const classes = useStyles();
 
   useEffect(() => {
-    dispatch(getCurrentStore());
+    dispatch(getStoreById(match.params.id));
   }, []);
   return (
     <Fragment>
@@ -131,14 +130,11 @@ const MyStore = () => {
           {/* insert main profile content here*/}
           {store !== null ? (
             <Fragment>
-              <MyStoreContent />
+              <StoreContent />
             </Fragment>
           ) : (
             <Fragment>
-              <p className='large text-primary'>
-                You have not yet setup a profile, please add some info
-              </p>
-              <MyStoreForm />
+              <p className='large text-primary'>Store not found</p>
             </Fragment>
           )}
         </main>
@@ -150,11 +146,5 @@ const MyStore = () => {
     </Fragment>
   );
 };
-// MyStore.propTypes = {
-//   getCurrentStore: PropTypes.func.isRequired,
-//   deleteStoret: PropTypes.func.isRequired,
-//   // auth: PropTypes.object.isRequired,
-//   // profile: PropTypes.object.isRequired
-// };
-// connect(null, { getCurrentStore, deleteStore })
-export default MyStore;
+
+export default Store;

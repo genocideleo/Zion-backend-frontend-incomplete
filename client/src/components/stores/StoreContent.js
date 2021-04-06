@@ -1,11 +1,11 @@
 import React, { useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import Spinner from '../../layout/Spinner';
-import ListedItems from './ListedItems';
+import Spinner from '../layout/Spinner';
 // import { getCurrentStore, deleteStore } from '../actions/store';
+import ListedItems from '../mystore/items/ListedItems';
+import StoreInfoBar from './StoreInfoBar';
 
-// import MyStoreInfoBar from './MyStoreInfoBar';
 // import Wishlist from './Wishlist';
 
 //Material UI custom style maker
@@ -15,10 +15,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-
 //Material UI icons
-import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
-import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+// import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+// import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 
 import SearchIcon from '@material-ui/icons/Search';
 import FilterListIcon from '@material-ui/icons/FilterList';
@@ -28,8 +27,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import { Icon, Typography } from '@material-ui/core';
-// import MyStoreInfoBar from './MyStoreInfoBar';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,10 +56,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 'auto',
     marginRight: '15px',
     flexDirection: 'row',
-  },
-  item: {
-    marginLeft: '70%',
-    marginRight: 'auto',
   },
   probox: {
     display: 'flex',
@@ -122,12 +116,18 @@ const MyStoreContent = () => {
   const classes = useStyles();
   //   const dispatch = useDispatch();
   //   const profile = useSelector((state) => state.profile.profile);
-  const item = useSelector((state) => state.item.item);
-  const { name, price, description } = item;
+  const store = useSelector((state) => state.store.store);
+  const {
+    storeemail,
+    storenumber,
+    storename,
+    sdescription,
+    storeaddress,
+  } = store;
   return (
-    // to wait for the item to load
+    // to wait for the profile to load
     <Fragment>
-      {item === null ? (
+      {store === null ? (
         <Spinner />
       ) : (
         <Fragment>
@@ -149,73 +149,70 @@ const MyStoreContent = () => {
             style={{
               display: 'flex',
               flexDirection: 'row',
-              justifyContent: 'center',
+              justifyContent: 'space-between',
               marginTop: '3px',
-              marginLeft: '16px',
             }}
           >
-            {/* item name and description */}
+            {/* profile pic card box */}
+            <Card className={classes.probox}>
+              <CardActionArea>
+                <CardMedia className={classes.pic} />
+                <CardContent>
+                  {/* box to row the username and upload button */}
+                  <Box
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <Typography style={{ marginLeft: '30%' }}>
+                      {store.username}
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+            {/* store name and description */}
             <Box
               style={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyItems: 'center',
-                width: '100%',
               }}
             >
+              {' '}
               <Box>
-                <Typography variant='h5'>{item.name}</Typography>
-              </Box>
-              {/* price */}
-              <Box>
-                <Typography variant='h5'>Price:RS {item.price}</Typography>
+                <Typography variant='h5'>
+                  {store.storename}'s StorePage
+                </Typography>
               </Box>
               {/* description */}
-              <Typography variant='h6'>Item Description</Typography>
+              <Typography
+                variant='h6'
+                style={{ marginTop: '2px', marginBottom: '2px' }}
+              >
+                Owner's Description
+              </Typography>
               <Box
                 border={1}
                 style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
                   height: '100%',
                   width: '100%',
                 }}
               >
-                <Typography variant='h5'>{item.description}</Typography>
+                <Typography variant='h7'>{store.sdescription}</Typography>
               </Box>
             </Box>
-            {/* wallpaper upload button and likes */}
-            <Box style={{ display: 'flex', flexDirection: 'column' }}>
-              <Button
-                variant='contained'
-                className={classes.walledit}
-                endIcon={<AddAPhotoIcon />}
-              >
-                Upload Item Pictures
-              </Button>
-              {/* likes */}
-              <Box
-                border={1}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  height: '32px',
-                  marginTop: '53px',
-                  marginLeft: '16px',
-                  marginRight: '16px',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Typography variant='h6' style={{ marginLeft: '2px' }}>
-                  Likes:{item.likes}
-                </Typography>
-                <FavoriteBorderOutlinedIcon style={{ marginRight: '3px' }} />
-              </Box>
-            </Box>
+            {/* follow button */}
+            <Button variant='contained' className={classes.walledit}>
+              Follow
+            </Button>
           </Box>
 
+          {/* <MyStoreInfoBar /> */}
+          <StoreInfoBar />
           {/* bottom navbar */}
           <Box
             style={{
@@ -226,16 +223,52 @@ const MyStoreContent = () => {
               marginTop: 12,
             }}
           >
+            {/* listed items */}
+            <Box style={{ display: 'flex', flexDirection: 'row' }}>
+              <Box borderRight={1} pr={1}>
+                <Typography variant='h6' align='left'>
+                  LISTED ITEMS
+                </Typography>
+              </Box>
+              <Box borderRight={1} pr={1} pl={1}>
+                <Typography variant='h6'>JOINED MALLS</Typography>
+              </Box>
+              <Box borderRight={1} pr={1} pl={1}>
+                <Typography variant='h6'>SERVICES</Typography>
+              </Box>
+              <Box border={0} pl={1}>
+                <Typography variant='h6'>COLLECTIONS</Typography>
+              </Box>
+            </Box>
             {/* add item */}
-            <Button
+            {/* <Button
               variant='outlined'
               style={{
                 marginLeft: 'auto',
                 marginRight: '15px',
               }}
+              endIcon={<ShoppingCartOutlinedIcon />}
             >
-              <Link to='/mystore'>Back to MyStore</Link>
-            </Button>
+              <Link to='/additem'>Add Item</Link>
+            </Button> */}
+            {/* search listeditems */}
+            <Box
+              border={1}
+              display='flex'
+              alignItems='center'
+              className={classes.inputBox}
+            >
+              <SearchIcon className={classes.searchIcon} />
+              <input
+                placeholder='search listeditems'
+                className={classes.input}
+              ></input>
+            </Box>
+            {/* filter ListedItems */}
+            <Box className={classes.filterIcon}>
+              <FilterListIcon />
+              <span style={{ fontSize: '0.8em' }}>Filter</span>
+            </Box>
           </Box>
           {/* underline after bottom navbar */}
           <hr
@@ -250,44 +283,10 @@ const MyStoreContent = () => {
             }}
           />
           {/*  itemlist  */}
+          <ListedItems />
         </Fragment>
       )}
     </Fragment>
   );
 };
 export default MyStoreContent;
-
-//to add
-/* options bar
-            <Box borderRight={1} pr={1}>
-              <Typography variant='h6' align='left'>
-                LISTED ITEMS
-              </Typography>
-            </Box>
-            <Box borderRight={1} pr={1} pl={1}>
-              <Typography variant='h6'>JOINED MALLS</Typography>
-            </Box>
-            <Box borderRight={1} pr={1} pl={1}>
-              <Typography variant='h6'>SERVICES</Typography>
-            </Box>
-            <Box border={0} pl={1}>
-              <Typography variant='h6'>COLLECTIONS</Typography>
-            </Box> */
-/* search listeditems */
-//  <Box
-//  border={1}
-//  display='flex'
-//  alignItems='center'
-//  className={classes.inputBox}
-// >
-//  <SearchIcon className={classes.searchIcon} />
-//  <input
-//    placeholder='search listeditems'
-//    className={classes.input}
-//  ></input>
-// </Box>
-// {/* filter ListedItems */}
-// <Box className={classes.filterIcon}>
-//  <FilterListIcon />
-//  <span style={{ fontSize: '0.8em' }}>Filter</span>
-// </Box>

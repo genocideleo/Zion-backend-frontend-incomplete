@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
   },
   asider: {
     //Controls the right part the main section
-    position: 'relative',
+    position: 'aboslute',
     height: '100%',
     backgroundColor: '#dadbdd',
     minWidth: '140px',
@@ -94,6 +94,7 @@ const useStyles = makeStyles((theme) => ({
   main: {
     //The middle part of the main section
     marginLeft: '140px',
+    marginRight: '140px',
     width: '100%',
     padding: '3px 20px',
   },
